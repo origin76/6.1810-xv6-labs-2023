@@ -2,6 +2,19 @@ Feel free to connect me about my lab work
 
 ## Progress
 
+note: Don't need to use
+```bash
+gcc -I ./ -MMD -c your.c -o your.o
+```
+or other compile instr , just write your.c code and add it on makefile $UPROGS then run
+```
+make GRADEFLAGS=sleep grade
+```
+
+###　util
+
+pingpong:note that if child process close too fast,it will print another extra "$ " to outstream 
+
 ## Below is the original content
 
 xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
