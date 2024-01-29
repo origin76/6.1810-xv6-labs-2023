@@ -11,9 +11,11 @@ or other compile instr , just write your.c code and add it on makefile $UPROGS t
 make GRADEFLAGS=sleep grade
 ```
 
-### util
+### Lab Utils
 
-pingpong:note that if child process close too fast,it will print another extra "$ " to outstream 
+pingpong: note that if child process close too fast,it will print another extra "$ " to outstream 
+
+primes: note that close both write ends in parent process and in child process
 
 ## Below is the original content
 
