@@ -16,6 +16,7 @@ kernel/kernel
 user/usys.S
 .gdbinit
 *.zip
+*.out
 xv6.out*
 .vagrant/
 submissions/
