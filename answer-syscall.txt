@@ -1,0 +1,48 @@
+1. Threads call usertrap()
+
+(gdb) bt
+#0  syscall () at kernel/syscall.c:133
+#1  0x0000000080001d70 in usertrap () at kernel/trap.c:67
+
+2.reg a7 represent SYSCALL type  
+
+(gdb) p/x*p
+$1 = {lock = {locked = 0x0, name = 0x800081b8, cpu = 0x0}, 
+state = 0x4, chan = 0x0, killed = 0x0, xstate = 0x0, pid = 0x1, 
+parent = 0x0, kstack = 0x3fffffd000, sz = 0x4000, 
+pagetable = 0x87f6c000, trapframe = 0x87f74000, context = {
+ra = 0x800014c2, sp = 0x3fffffdd10, s0 = 0x3fffffdd40, 
+s1 = 0x80008d50, s2 = 0x80008920, s3 = 0x0, s4 = 0x80021d38, 
+s5 = 0xffffffffffffffff, s6 = 0x3f78, s7 = 0x930, s8 = 0x64, 
+s9 = 0x6c, s10 = 0x78, s11 = 0x70}, ofile = {0x80018a50, 
+0x80018a50, 0x80018a50, 0x0 <repeats 13 times>}, 
+cwd = 0x80016e60, name = {0x69, 0x6e, 0x69, 0x74, 0x0, 0x0, 0x64, 
+0x65, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}}
+
+(gdb) p/x ((struct trapframe*)0x87f74000)->a7
+$2 = 0x10
+
+3. sstatus means Supervisor status register , previous privilege is user mode
+SPP (Supervisor previous privilege) = 0 
+SIE (Supervisor Interrupt Enable) = 1
+(gdb) p /x $sstatus
+$3 = 0x22
+
+4. so variable num in reg a3
+
+sepc=0x0000000080002050
+
+num = * (int *) 0;
+  80002050:	00002683          	lw	a3,0(zero) # 0 <_entry-0x80000000>
+
+5.
+In xv6 , 0-0x1000 is Unused.
+It's confirmed by scause:
+scause 0x000000000000000d means Load Page Fault
+
+6.
+(gdb) p p->name
+$1 = "initcode\000\000\000\000\000\000\000"
+(gdb) p p->pid
+$2 = 1
+
